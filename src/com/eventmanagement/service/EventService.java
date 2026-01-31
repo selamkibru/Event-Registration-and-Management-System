@@ -2,6 +2,7 @@ package com.eventmanagement.service;
 
 import com.eventmanagement.model.Event;
 import com.eventmanagement.repository.EventRepository;
+import com.eventmanagement.util.InputValidator;
 
 import java.util.List;
 
@@ -14,9 +15,10 @@ public class EventService {
 
     // Add or update event
     public void saveEvent(Event event) {
-        if (event.getName().isEmpty() || event.getCapacity() <= 0) {
-            throw new IllegalArgumentException("Invalid event data");
-        }
+        InputValidator.validateNonEmpty("Event name", event.getName());
+        InputValidator.validateNonEmpty("Event date", event.getDate());
+        InputValidator.validatePositive("Event capacity", event.getCapacity());
+
         eventRepository.save(event);
     }
 

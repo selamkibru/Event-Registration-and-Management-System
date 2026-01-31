@@ -2,6 +2,7 @@ package com.eventmanagement.service;
 
 import com.eventmanagement.model.Registration;
 import com.eventmanagement.repository.RegistrationRepository;
+import com.eventmanagement.util.InputValidator;
 
 import java.util.List;
 
@@ -14,9 +15,9 @@ public class RegistrationService {
 
     // Register attendee
     public void register(Registration registration) {
-        if (registration.getAttendeeId().isEmpty() || registration.getEventId().isEmpty()) {
-            throw new IllegalArgumentException("Invalid registration data");
-        }
+        InputValidator.validateNonEmpty("Attendee ID", registration.getAttendeeId());
+        InputValidator.validateNonEmpty("Event ID", registration.getEventId());
+
         registrationRepository.save(registration);
     }
 
