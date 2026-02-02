@@ -15,7 +15,9 @@ public class RegistrationService {
 
     // Register attendee
     public void register(Registration registration) {
-        InputValidator.validateNonEmpty("Attendee ID", registration.getAttendeeId());
+        InputValidator.validateNonEmpty("Attendee Name", registration.getAttendeeName());
+        InputValidator.validateNonEmpty("Email", registration.getEmail());
+        InputValidator.validateNonEmpty("Phone", registration.getPhone());
         InputValidator.validateNonEmpty("Event ID", registration.getEventId());
 
         registrationRepository.save(registration);

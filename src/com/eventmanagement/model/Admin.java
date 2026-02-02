@@ -6,6 +6,7 @@ public class Admin extends User {
         super(id, name, email);
     }
 
+    @Override
     public void showDashboard() {
         System.out.println("Admin Dashboard: manage events and users");
     }

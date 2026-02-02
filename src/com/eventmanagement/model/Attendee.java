@@ -6,6 +6,7 @@ public class Attendee extends User {
         super(id, name, email);
     }
 
+    @Override
     public void showDashboard() {
         System.out.println("Attendee Dashboard: view and register for events");
     }

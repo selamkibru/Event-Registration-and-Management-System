@@ -10,6 +10,7 @@ public class FileRegistrationRepository implements RegistrationRepository {
 
     private static final String FILE_PATH = "registrations.csv";
 
+    @Override
     public void save(Registration reg) {
         List<Registration> regs = findAll();
         boolean updated = false;
@@ -29,13 +30,21 @@ public class FileRegistrationRepository implements RegistrationRepository {
         writeAll(regs);
     }
 
+    @Override
     public List<Registration> findAll() {
         List<Registration> regs = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                Registration r = new Registration(parts[0], parts[1], parts[2]);
+                if (parts.length < 5) continue; // Skip bad lines
+                Registration r = new Registration(
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        parts[4]
+                );
                 regs.add(r);
             }
         } catch (FileNotFoundException e) {
@@ -46,6 +55,7 @@ public class FileRegistrationRepository implements RegistrationRepository {
         return regs;
     }
 
+    @Override
     public Registration findById(String id) {
         for (Registration r : findAll()) {
             if (r.getRegistrationId().equals(id)) return r;
@@ -53,6 +63,7 @@ public class FileRegistrationRepository implements RegistrationRepository {
         return null;
     }
 
+    @Override
     public void delete(String id) {
         List<Registration> regs = findAll();
         regs.removeIf(r -> r.getRegistrationId().equals(id));
@@ -62,7 +73,13 @@ public class FileRegistrationRepository implements RegistrationRepository {
     private void writeAll(List<Registration> regs) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Registration r : regs) {
-                bw.write(r.getRegistrationId() + "," + r.getEventId() + "," + r.getAttendeeId());
+                bw.write(
+                        r.getRegistrationId() + "," +
+                                r.getEventId() + "," +
+                                r.getAttendeeName() + "," +
+                                r.getEmail() + "," +
+                                r.getPhone()
+                );
                 bw.newLine();
             }
         } catch (IOException e) {

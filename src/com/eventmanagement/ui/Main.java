@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    @Override
     public void start(Stage stage) {
         Login login = new Login();
         login.show(stage); // Start with login screen
