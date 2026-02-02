@@ -14,7 +14,7 @@ public class Login {
     public void show(Stage stage) {
 
         // Title
-        Label title = new Label("Event Registration and Management System");
+        Label title = new Label("Event Registration System");
         title.setFont(new Font("Arial", 20));
 
         // Buttons
