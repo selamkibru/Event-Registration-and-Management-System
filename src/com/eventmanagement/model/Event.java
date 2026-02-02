@@ -6,7 +6,7 @@ public class Event {
     private String name;
     private String date;
     private int capacity;
-    private String createdByAdmin; // 👈 NEW
+    private String createdByAdmin; //NEW
 
     public Event(String eventId, String name,
                  String date, int capacity,
